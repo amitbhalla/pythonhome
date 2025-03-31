@@ -16,6 +16,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
+# CSRF trusted origins
+CSRF_TRUSTED_ORIGINS = ['http://localhost', 'http://127.0.0.1', 'http://pythonhome.onrender.com', 'http://.onrender.com']
+
 # Database configuration
 DATABASES = {
     "default": {

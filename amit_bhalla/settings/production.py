@@ -20,6 +20,8 @@ ALLOWED_HOSTS = []
 RENDER_EXTERNAL_HOSTNAME = os.getenv('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+    # Add HTTPS trusted origin for Render.com
+    CSRF_TRUSTED_ORIGINS = [f'https://{RENDER_EXTERNAL_HOSTNAME}']
 
 # Database
 # Use PostgreSQL on Render.com

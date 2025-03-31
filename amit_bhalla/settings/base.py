@@ -8,6 +8,9 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
+# Default allowed hosts (should be overridden in environment-specific settings)
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'pythonhome.onrender.com', '.onrender.com']
+
 # Application definition
 INSTALLED_APPS = [
     "django.contrib.admin",
