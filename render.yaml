@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: amit-bhalla
+    env: python
+    buildCommand: ./build.sh
+    startCommand: gunicorn amit_bhalla.wsgi:application
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: False
+      - key: DATABASE_URL
+        fromDatabase:
+          name: amit_bhalla_db
+          property: connectionString
+
+databases:
+  - name: amit_bhalla_db
+    databaseName: amit_bhalla
+    user: amit_bhalla
