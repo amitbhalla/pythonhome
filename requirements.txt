@@ -3,9 +3,13 @@ bleach==6.2.0
 Django==5.1.7
 django-appconf==1.1.0
 django-compressor==4.5.1
+dj-database-url==2.1.0
+gunicorn==21.2.0
 Markdown==3.7
 pillow==11.1.0
+psycopg2-binary==2.9.9
 rcssmin==1.1.2
 rjsmin==1.2.2
 sqlparse==0.5.3
 webencodings==0.5.1
+whitenoise==6.6.0

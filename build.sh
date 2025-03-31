@@ -2,14 +2,17 @@
 # exit on error
 set -o errexit
 
-# Install dependencies
+echo "Installing dependencies..."
+python -m pip install --upgrade pip
 pip install -r requirements.txt
 
-# Create static directory if it doesn't exist
+echo "Creating static directory..."
 mkdir -p static
 
-# Run collectstatic to gather static files
+echo "Running collectstatic..."
 python manage.py collectstatic --no-input
 
-# Run migrations
+echo "Running migrations..."
 python manage.py migrate
+
+echo "Build complete!"
