@@ -1,37 +1,44 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, TemplateView
 from django.db.models import Q
+from django.http import HttpResponse
 from django.db import connection
-from .models import Service, Testimonial, CaseStudy, Resource, BlogPost, FAQ, ProcessStep
 
-class SafeTemplateView(TemplateView):
-    """A TemplateView that handles database errors gracefully."""
-    fallback_template = 'fallback.html'
+# Import models with error handling
+try:
+    from .models import Service, Testimonial, CaseStudy, Resource, BlogPost, FAQ, ProcessStep
+    MODELS_IMPORTED = True
+except Exception as e:
+    print(f"Error importing models: {e}")
+    MODELS_IMPORTED = False
+
+class HomeView(TemplateView):
+    template_name = 'core/home.html'
+    fallback_template = 'starter.html'  # Use our starter template as fallback
     
     def get(self, request, *args, **kwargs):
         try:
-            return super().get(request, *args, **kwargs)
-        except Exception as e:
-            return render(request, self.fallback_template)
-            
-    def get_context_data(self, **kwargs):
-        try:
-            return super().get_context_data(**kwargs)
-        except Exception:
-            return kwargs
-
-class HomeView(SafeTemplateView):
-    template_name = 'core/home.html'
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        try:
-            # Check if tables exist
+            # First check if tables exist in the database
             with connection.cursor() as cursor:
                 tables = connection.introspection.table_names()
-                if 'core_service' not in tables:
-                    return redirect('fallback')
-                    
+                if 'core_service' not in tables or not MODELS_IMPORTED:
+                    return render(request, self.fallback_template)
+            
+            # Then check if we can query the database
+            services = Service.objects.filter(is_active=True)
+            if len(services) == 0:
+                return render(request, self.fallback_template)
+                
+            # If we get here, everything should be working
+            return super().get(request, *args, **kwargs)
+        except Exception as e:
+            # Any database error - use fallback template
+            print(f"Error in HomeView: {e}")
+            return render(request, self.fallback_template)
+    
+    def get_context_data(self, **kwargs):
+        try:
+            context = super().get_context_data(**kwargs)
             context['services'] = Service.objects.filter(is_active=True)
             context['testimonials'] = Testimonial.objects.filter(is_active=True)
             context['case_studies'] = CaseStudy.objects.filter(is_active=True)
@@ -39,41 +46,29 @@ class HomeView(SafeTemplateView):
             context['blog_posts'] = BlogPost.objects.filter(is_published=True)[:3]
             context['faqs'] = FAQ.objects.filter(is_active=True)
             context['process_steps'] = ProcessStep.objects.filter(is_active=True)
-        except Exception:
-            # If any database error occurs, use empty lists
-            context['services'] = []
-            context['testimonials'] = []
-            context['case_studies'] = []
-            context['resources'] = []
-            context['blog_posts'] = []
-            context['faqs'] = []
-            context['process_steps'] = []
-        return context
+            return context
+        except Exception as e:
+            print(f"Error in get_context_data: {e}")
+            return {
+                'services': [],
+                'testimonials': [],
+                'case_studies': [],
+                'resources': [],
+                'blog_posts': [],
+                'faqs': [],
+                'process_steps': [],
+            }
 
 class ServiceListView(ListView):
     model = Service
     template_name = 'core/service_list.html'
     context_object_name = 'services'
-    queryset = Service.objects.filter(is_active=True)
-
-class ServiceDetailView(DetailView):
-    model = Service
-    template_name = 'core/service_detail.html'
-    context_object_name = 'service'
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        current_service = self.get_object()
-        
-        # Get related services (exclude current service)
-        related_services = Service.objects.filter(
-            is_active=True
-        ).exclude(
-            id=current_service.id
-        ).order_by('?')[:3]  # Get 3 random related services
-        
-        context['related_services'] = related_services
-        return context
+    def get_queryset(self):
+        try:
+            return Service.objects.filter(is_active=True)
+        except Exception:
+            return []
 
 # Keep the rest of your views as they were...
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Direct database initialization script.
+Direct database initialization script - fixed version.
 This script connects to the database and creates all necessary tables
 when Django migrations might be failing.
 """
@@ -59,7 +59,7 @@ def main():
         
         # Create basic tables needed for the app to work
         with conn.cursor() as cur:
-            # Create core_service table
+            # Create core_service table - using the proper PostgreSQL keyword for order
             cur.execute("""
                 CREATE TABLE core_service (
                     id SERIAL PRIMARY KEY,
@@ -67,7 +67,7 @@ def main():
                     icon_class VARCHAR(50) NOT NULL,
                     short_description TEXT NOT NULL,
                     full_description TEXT NOT NULL DEFAULT '',
-                    order INTEGER NOT NULL,
+                    "order" INTEGER NOT NULL,
                     slug VARCHAR(100) UNIQUE NOT NULL,
                     is_active BOOLEAN NOT NULL,
                     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
@@ -79,7 +79,7 @@ def main():
             cur.execute("""
                 INSERT INTO core_service (
                     title, icon_class, short_description, full_description,
-                    order, slug, is_active, created_at, updated_at
+                    "order", slug, is_active, created_at, updated_at
                 ) VALUES (
                     'Marketing Strategy',
                     'fas fa-bullseye',
