@@ -9,6 +9,8 @@ services:
         generateValue: true
       - key: DEBUG
         value: False
+      - key: DJANGO_SETTINGS_MODULE
+        value: amit_bhalla.settings.production
       - key: DATABASE_URL
         fromDatabase:
           name: amit_bhalla_db
