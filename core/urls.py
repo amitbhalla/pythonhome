@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from . import views_debug
 
 app_name = 'core'
 
@@ -13,4 +14,7 @@ urlpatterns = [
     path('blog/<slug:slug>/', views.BlogDetailView.as_view(), name='blog_detail'),
     path('case-studies/', views.CaseStudyListView.as_view(), name='case_study_list'),
     path('case-studies/<slug:slug>/', views.CaseStudyDetailView.as_view(), name='case_study_detail'),
+    
+    # Debug URL - only works when DEBUG=True
+    path('debug/', views_debug.debug_info, name='debug_info'),
 ]
