@@ -34,5 +34,13 @@ python check_data.py || echo "Data check failed, but continuing..."
 echo "Step 6: Running collectstatic..."
 python manage.py collectstatic --no-input || echo "Collectstatic failed, but continuing..."
 
+echo "Step 7: Creating superuser if needed..."
+if [[ -n "$DJANGO_SUPERUSER_EMAIL" && -n "$DJANGO_SUPERUSER_PASSWORD" ]]; then
+    python create_superuser.py || echo "Superuser creation failed, but continuing..."
+else
+    echo "Skipping superuser creation: Required environment variables not set."
+fi
+
 echo "=== DEPLOYMENT COMPLETED ==="
 echo "The website should now be accessible."
+echo "Admin interface available at /admin/"
