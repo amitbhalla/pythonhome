@@ -3,6 +3,7 @@ from django.db import connection
 from django.conf import settings
 import os
 import sys
+import django
 
 def debug_info(request):
     """View to provide diagnostic information"""
@@ -14,12 +15,12 @@ def debug_info(request):
     # Basic environment info
     response_parts.append("<h1>Django Debug Information</h1>")
     response_parts.append(f"<p>Python version: {sys.version}</p>")
-    response_parts.append(f"<p>Django version: {settings.DJANGO_VERSION}</p>")
+    response_parts.append(f"<p>Django version: {django.__version__}</p>")  # Fixed this line
     response_parts.append(f"<p>Running on: {os.uname().nodename}</p>")
     
     # Database connection info
     response_parts.append("<h2>Database Information</h2>")
-    db_name = settings.DATABASES['default']['NAME']
+    db_name = settings.DATABASES['default'].get('NAME', 'Unknown')
     response_parts.append(f"<p>Database name: {db_name}</p>")
     
     # Check database tables
