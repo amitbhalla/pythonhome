@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amit Bhalla | Marketing Architect | Getting Started</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #2563eb;
+            margin-bottom: 1em;
+            text-align: center;
+        }
+        
+        .card {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        .card h2 {
+            color: #1e40af;
+            margin-top: 0;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+        
+        .status {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .status.success {
+            color: #10b981;
+        }
+        
+        .status.error {
+            color: #ef4444;
+        }
+        
+        .status.pending {
+            color: #f59e0b;
+        }
+        
+        .status-icon {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #2563eb;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .btn:hover {
+            background: #1d4ed8;
+        }
+        
+        .alert {
+            background-color: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+        pre {
+            background-color: #f8fafc;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Amit Bhalla Marketing Website</h1>
+    
+    <div class="card">
+        <h2>Website Status</h2>
+        <div class="status success">
+            <span class="status-icon">✓</span>
+            <span>Web server running</span>
+        </div>
+        <div class="status pending">
+            <span class="status-icon">⟳</span>
+            <span>Database initialization in progress</span>
+        </div>
+        <div class="status pending">
+            <span class="status-icon">⟳</span>
+            <span>Template rendering in progress</span>
+        </div>
+        
+        <p>The website is currently in the initialization phase. This temporary page will be replaced with the full website once setup is complete.</p>
+        
+        <a href="/" class="btn">Refresh Page</a>
+    </div>
+    
+    <div class="card">
+        <h2>Next Steps</h2>
+        <ol>
+            <li>Complete database setup</li>
+            <li>Load initial seed data</li>
+            <li>Enable full website functionality</li>
+        </ol>
+        <p>If you're the administrator, please check the deployment logs for more information on the progress.</p>
+    </div>
+    
+    <div class="alert">
+        Note: This is a temporary page and will be replaced by the full website once initialization is complete.
+    </div>
+</body>
+</html>

@@ -1,62 +1,37 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, TemplateView
 from django.db.models import Q
-from django.http import HttpResponse
 from django.db import connection
-from django.template.loader import render_to_string
-from django.template import TemplateDoesNotExist
-import os
+from .models import Service, Testimonial, CaseStudy, Resource, BlogPost, FAQ, ProcessStep
 
-# Import models with error handling
-try:
-    from .models import Service, Testimonial, CaseStudy, Resource, BlogPost, FAQ, ProcessStep
-    MODELS_IMPORTED = True
-except Exception:
-    MODELS_IMPORTED = False
-
-class HomeView(TemplateView):
-    template_name = 'core/home.html'
+class SafeTemplateView(TemplateView):
+    """A TemplateView that handles database errors gracefully."""
+    fallback_template = 'fallback.html'
     
     def get(self, request, *args, **kwargs):
-        # Check if database is ready
         try:
-            # First try to see if tables exist
-            with connection.cursor() as cursor:
-                tables = connection.introspection.table_names()
-                if 'core_service' not in tables or not MODELS_IMPORTED:
-                    # Database tables don't exist, render fallback
-                    return render(request, 'fallback.html')
-            
-            # If we get here, try to query the database
-            services = Service.objects.filter(is_active=True)
-            if not services.exists():
-                # No data in database yet
-                return render(request, 'fallback.html')
-                
-            # Normal case - render the full template
             return super().get(request, *args, **kwargs)
-        
         except Exception as e:
-            # Any error - render fallback
-            error_message = str(e)
-            context = {'error': error_message}
-            try:
-                return render(request, 'fallback.html', context)
-            except TemplateDoesNotExist:
-                # Ultimate fallback - simple HTML response
-                return HttpResponse(f"""
-                    <html>
-                    <head><title>Site Initializing</title></head>
-                    <body>
-                        <h1>The website is initializing</h1>
-                        <p>Please try again in a few minutes.</p>
-                    </body>
-                    </html>
-                """)
+            return render(request, self.fallback_template)
+            
+    def get_context_data(self, **kwargs):
+        try:
+            return super().get_context_data(**kwargs)
+        except Exception:
+            return kwargs
+
+class HomeView(SafeTemplateView):
+    template_name = 'core/home.html'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         try:
+            # Check if tables exist
+            with connection.cursor() as cursor:
+                tables = connection.introspection.table_names()
+                if 'core_service' not in tables:
+                    return redirect('fallback')
+                    
             context['services'] = Service.objects.filter(is_active=True)
             context['testimonials'] = Testimonial.objects.filter(is_active=True)
             context['case_studies'] = CaseStudy.objects.filter(is_active=True)
@@ -64,8 +39,8 @@ class HomeView(TemplateView):
             context['blog_posts'] = BlogPost.objects.filter(is_published=True)[:3]
             context['faqs'] = FAQ.objects.filter(is_active=True)
             context['process_steps'] = ProcessStep.objects.filter(is_active=True)
-        except Exception as e:
-            # If anything fails, provide empty lists
+        except Exception:
+            # If any database error occurs, use empty lists
             context['services'] = []
             context['testimonials'] = []
             context['case_studies'] = []
@@ -73,10 +48,34 @@ class HomeView(TemplateView):
             context['blog_posts'] = []
             context['faqs'] = []
             context['process_steps'] = []
-            context['error'] = str(e)
         return context
 
-# Keep the rest of your view definitions here
+class ServiceListView(ListView):
+    model = Service
+    template_name = 'core/service_list.html'
+    context_object_name = 'services'
+    queryset = Service.objects.filter(is_active=True)
+
+class ServiceDetailView(DetailView):
+    model = Service
+    template_name = 'core/service_detail.html'
+    context_object_name = 'service'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_service = self.get_object()
+        
+        # Get related services (exclude current service)
+        related_services = Service.objects.filter(
+            is_active=True
+        ).exclude(
+            id=current_service.id
+        ).order_by('?')[:3]  # Get 3 random related services
+        
+        context['related_services'] = related_services
+        return context
+
+# Keep the rest of your views as they were...
 
 class HomeView(TemplateView):
     template_name = 'core/home.html'
