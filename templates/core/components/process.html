@@ -1,0 +1,182 @@
+{% load custom_filters %}
+<section class="process" id="process">
+    <!-- Blob SVGs for process section -->
+    <div class="blob blob-2">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path fill="var(--light)" d="M38.1,-65.2C50.8,-59.8,63.5,-52.6,69.7,-41.7C75.9,-30.8,75.5,-16.4,71.9,-3.9C68.3,8.7,61.6,19.7,55.3,31.3C49,42.9,43.1,55.1,33.2,62.1C23.2,69.1,9.1,70.9,-4.1,69.1C-17.3,67.3,-29.6,62,-38.4,53.7C-47.3,45.3,-52.6,33.9,-56.7,22.4C-60.7,10.8,-63.4,-0.9,-63.4,-13.5C-63.4,-26.1,-60.7,-39.6,-52.5,-48.1C-44.2,-56.7,-30.5,-60.3,-17.9,-65.8C-5.3,-71.2,7.3,-78.5,19.3,-78.2C31.3,-77.9,42.8,-70,38.1,-65.2Z"></path>
+        </svg>
+    </div>
+    
+    <div class="container process-container">
+        <div class="process-header">
+            <span class="section-tag">My Approach</span>
+            <h2>A Proven Process That <span class="text-gradient">Gets Results</span></h2>
+            <p>
+                My systematic approach ensures we build a marketing strategy that's aligned with your business goals and delivers measurable outcomes.
+            </p>
+        </div>
+        
+        <div class="process-steps">
+            {% for step in process_steps %}
+            <div class="process-step" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|multiply:100 }}">
+                <div class="process-step-number">{{ forloop.counter }}</div>
+                <div class="process-step-content">
+                    <div class="process-step-icon">
+                        <i class="{{ step.icon_class }}"></i>
+                    </div>
+                    <h3 class="process-step-title">{{ step.title }}</h3>
+                    <p class="process-step-description">{{ step.description }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <!-- Fallback process steps if none exist in the database yet -->
+            <div class="process-step" data-aos="fade-up" data-aos-delay="0">
+                <div class="process-step-number">1</div>
+                <div class="process-step-content">
+                    <div class="process-step-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="process-step-title">Discovery & Analysis</h3>
+                    <p class="process-step-description">Comprehensive audit of your current marketing efforts, business goals, target audience, and competitive landscape to identify opportunities.</p>
+                </div>
+            </div>
+            
+            <div class="process-step" data-aos="fade-up" data-aos-delay="100">
+                <div class="process-step-number">2</div>
+                <div class="process-step-content">
+                    <div class="process-step-icon">
+                        <i class="fas fa-pencil-ruler"></i>
+                    </div>
+                    <h3 class="process-step-title">Strategy Development</h3>
+                    <p class="process-step-description">Creating a customized marketing strategy that addresses your specific challenges and leverages your unique advantages in the market.</p>
+                </div>
+            </div>
+            
+            <div class="process-step" data-aos="fade-up" data-aos-delay="200">
+                <div class="process-step-number">3</div>
+                <div class="process-step-content">
+                    <div class="process-step-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="process-step-title">Implementation</h3>
+                    <p class="process-step-description">Execution of the marketing plan with precision, ensuring all elements work together cohesively to achieve your business objectives.</p>
+                </div>
+            </div>
+            
+            <div class="process-step" data-aos="fade-up" data-aos-delay="300">
+                <div class="process-step-number">4</div>
+                <div class="process-step-content">
+                    <div class="process-step-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="process-step-title">Measurement & Optimization</h3>
+                    <p class="process-step-description">Continuous monitoring of performance metrics to measure results against KPIs and refine strategies for maximum effectiveness.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Process Section Styles */
+    .process {
+        background-color: var(--darker);
+        color: var(--light);
+        position: relative;
+    }
+    
+    .process-container {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .process-header {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 4rem;
+    }
+    
+    .process-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    
+    .process-step {
+        display: flex;
+        gap: 2rem;
+        position: relative;
+    }
+    
+    .process-step:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        top: 80px;
+        left: 35px;
+        width: 2px;
+        height: calc(100% + 2.5rem);
+        background: linear-gradient(to bottom, var(--accent), rgba(59, 130, 246, 0.1));
+        z-index: 1;
+    }
+    
+    .process-step-number {
+        flex: 0 0 70px;
+        height: 70px;
+        background: var(--accent);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        font-family: var(--font-primary);
+        color: var(--light);
+        box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4);
+        position: relative;
+        z-index: 2;
+    }
+    
+    .process-step-content {
+        flex: 1;
+        padding-top: 0.5rem;
+    }
+    
+    .process-step-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 15px;
+        background: rgba(59, 130, 246, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        color: var(--accent);
+        font-size: 1.5rem;
+    }
+    
+    .process-step-title {
+        font-size: 1.375rem;
+        margin-bottom: 1rem;
+        color: var(--light);
+    }
+    
+    .process-step-description {
+        font-size: 1rem;
+        opacity: 0.8;
+        max-width: 550px;
+    }
+    
+    @media (max-width: 768px) {
+        .process-step {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .process-step:not(:last-child)::after {
+            display: none;
+        }
+    }
+</style>

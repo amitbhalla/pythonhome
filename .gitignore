@@ -1,0 +1,19 @@
+# Python
+*.pyc
+__pycache__/
+
+# Virtual Environments
+venv/
+env/
+myenv/
+
+# Django specific
+*.log
+local_settings.py
+db.sqlite3
+
+# Static files
+staticfiles/
+
+# macOS
+.DS_Store

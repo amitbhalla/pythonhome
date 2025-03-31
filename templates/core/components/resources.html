@@ -1,0 +1,214 @@
+{% load custom_filters %}
+<section class="free-resources" id="resources">
+    <!-- Blob SVGs for resources section -->
+    <div class="blob blob-2 blob-small">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path fill="var(--light)" d="M38.1,-65.2C50.8,-59.8,63.5,-52.6,69.7,-41.7C75.9,-30.8,75.5,-16.4,71.9,-3.9C68.3,8.7,61.6,19.7,55.3,31.3C49,42.9,43.1,55.1,33.2,62.1C23.2,69.1,9.1,70.9,-4.1,69.1C-17.3,67.3,-29.6,62,-38.4,53.7C-47.3,45.3,-52.6,33.9,-56.7,22.4C-60.7,10.8,-63.4,-0.9,-63.4,-13.5C-63.4,-26.1,-60.7,-39.6,-52.5,-48.1C-44.2,-56.7,-30.5,-60.3,-17.9,-65.8C-5.3,-71.2,7.3,-78.5,19.3,-78.2C31.3,-77.9,42.8,-70,38.1,-65.2Z"></path>
+        </svg>
+    </div>
+    
+    <div class="container resources-container">
+        <div class="resources-header">
+            <span class="section-tag">Free Marketing Resources</span>
+            <h2>Proven <span class="text-gradient">Frameworks</span> & Strategy Playbooks</h2>
+            <p>
+                Access my collection of battle-tested marketing frameworks, templates, and strategy playbooks that I've used to drive growth for industry-leading brands. No email required — just download and apply.
+            </p>
+        </div>
+        
+        <div class="resources-grid">
+            {% for resource in resources %}
+            <div class="resource-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|multiply:100 }}">
+                <div class="resource-icon">
+                    <i class="{{ resource.icon_class }}"></i>
+                </div>
+                <div class="resource-content">
+                    <span class="resource-type">{{ resource.get_resource_type_display }}</span>
+                    <h3 class="resource-title">{{ resource.title }}</h3>
+                    <p class="resource-description">{{ resource.short_description }}</p>
+                    <a href="{% if resource.file %}{{ resource.file.url }}{% else %}{% url 'core:resource_detail' resource.slug %}{% endif %}" class="resource-link">Download Now <i class="fas fa-download"></i></a>
+                </div>
+            </div>
+            {% empty %}
+            <!-- Fallback resources if none exist in the database yet -->
+            <div class="resource-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="resource-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <div class="resource-content">
+                    <span class="resource-type">Framework</span>
+                    <h3 class="resource-title">Growth Marketing Framework</h3>
+                    <p class="resource-description">A comprehensive framework for planning, executing, and measuring marketing initiatives that drive sustainable business growth.</p>
+                    <a href="#" class="resource-link">Download Now <i class="fas fa-download"></i></a>
+                </div>
+            </div>
+            
+            <div class="resource-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="resource-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="resource-content">
+                    <span class="resource-type">Template</span>
+                    <h3 class="resource-title">Marketing ROI Calculator</h3>
+                    <p class="resource-description">A detailed spreadsheet for tracking and calculating the return on investment for your marketing campaigns across multiple channels.</p>
+                    <a href="#" class="resource-link">Download Now <i class="fas fa-download"></i></a>
+                </div>
+            </div>
+            
+            <div class="resource-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="resource-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="resource-content">
+                    <span class="resource-type">Guide</span>
+                    <h3 class="resource-title">Customer Persona Development Guide</h3>
+                    <p class="resource-description">A step-by-step guide to creating detailed customer personas that drive effective targeting and messaging in your marketing campaigns.</p>
+                    <a href="#" class="resource-link">Download Now <i class="fas fa-download"></i></a>
+                </div>
+            </div>
+            
+            <div class="resource-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="resource-icon">
+                    <i class="fas fa-bullhorn"></i>
+                </div>
+                <div class="resource-content">
+                    <span class="resource-type">Checklist</span>
+                    <h3 class="resource-title">Marketing Campaign Launch Checklist</h3>
+                    <p class="resource-description">A comprehensive checklist to ensure you've covered all aspects of planning and executing a successful marketing campaign.</p>
+                    <a href="#" class="resource-link">Download Now <i class="fas fa-download"></i></a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="resources-cta">
+            <a href="{% url 'core:resource_list' %}" class="btn btn-primary">View All Resources</a>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Resource Section Styles */
+    .free-resources {
+        background-color: var(--light);
+        position: relative;
+    }
+    
+    .resources-container {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .resources-header {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 4rem;
+    }
+    
+    .resources-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+    
+    .resource-card {
+        background-color: var(--light);
+        border-radius: 1rem;
+        padding: 2rem;
+        box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.05);
+        border: 1px solid var(--gray-light);
+        display: flex;
+        gap: 1.5rem;
+        transition: all 0.3s ease;
+    }
+    
+    .resource-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 40px -15px rgba(0, 0, 0, 0.1);
+        border-color: var(--primary);
+    }
+    
+    .resource-icon {
+        flex: 0 0 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: var(--light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary);
+        font-size: 1.5rem;
+        box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.2);
+        border: 1px solid rgba(59, 130, 246, 0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .resource-card:hover .resource-icon {
+        background: var(--primary);
+        color: var(--light);
+    }
+    
+    .resource-content {
+        flex: 1;
+    }
+    
+    .resource-type {
+        display: inline-block;
+        background-color: rgba(59, 130, 246, 0.1);
+        color: var(--primary);
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+    }
+    
+    .resource-title {
+        margin-bottom: 0.75rem;
+        font-size: 1.25rem;
+        color: var(--dark);
+        transition: color 0.3s ease;
+    }
+    
+    .resource-card:hover .resource-title {
+        color: var(--primary);
+    }
+    
+    .resource-description {
+        color: var(--gray);
+        font-size: 0.9375rem;
+        margin-bottom: 1rem;
+    }
+    
+    .resource-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        font-family: var(--font-primary);
+        font-size: 0.9375rem;
+        transition: all 0.3s ease;
+    }
+    
+    .resource-link i {
+        transition: transform 0.3s ease;
+    }
+    
+    .resource-link:hover i {
+        transform: translateY(-3px);
+    }
+    
+    .resources-cta {
+        text-align: center;
+        margin-top: 2rem;
+    }
+    
+    @media (max-width: 768px) {
+        .resources-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

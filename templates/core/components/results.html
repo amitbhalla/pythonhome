@@ -1,0 +1,352 @@
+{% load custom_filters %}
+<section class="results" id="results">
+    <!-- SVG Blobs for visual interest -->
+    <div class="blob blob-results-1">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path fill="rgba(247, 37, 133, 0.05)" d="M38.5,-65.1C45.5,-59.5,44.2,-39.9,48.7,-25.7C53.2,-11.6,63.5,-2.8,66.4,7.9C69.3,18.7,64.8,31.3,55.3,38.7C45.9,46.1,31.4,48.3,19.1,50.1C6.8,52,-3.2,53.6,-14.8,52.5C-26.4,51.5,-39.7,47.8,-48.9,39.7C-58.1,31.5,-63.3,18.9,-66.2,5.1C-69.1,-8.6,-69.7,-23.5,-62.3,-32.5C-54.9,-41.5,-39.4,-44.6,-27.1,-48.1C-14.8,-51.6,-5.6,-55.4,7.5,-63.6C20.6,-71.8,31.5,-70.7,38.5,-65.1Z" transform="translate(100 100)" />
+        </svg>
+    </div>
+    
+    <div class="container results-container">
+        <div class="results-header" data-aos="fade-up">
+            <span class="section-tag">Client Success Stories</span>
+            <h2>Real <span class="text-gradient">Results</span> for Real Businesses</h2>
+            <p>
+                I've helped companies of all sizes achieve remarkable growth through data-driven marketing strategies. Here are some of the results we've achieved together.
+            </p>
+        </div>
+        
+        <div class="results-showcase">
+            <!-- Metrics Overview -->
+            <div class="results-metrics" data-aos="fade-up">
+                <div class="metric-circle">
+                    <div class="metric-outer-ring">
+                        <div class="metric-inner-content">
+                            <span class="metric-number">320%</span>
+                            <span class="metric-label">Average<br>ROI</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="metric-circle">
+                    <div class="metric-outer-ring">
+                        <div class="metric-inner-content">
+                            <span class="metric-number">47%</span>
+                            <span class="metric-label">Conversion<br>Increase</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="metric-circle">
+                    <div class="metric-outer-ring">
+                        <div class="metric-inner-content">
+                            <span class="metric-number">12M+</span>
+                            <span class="metric-label">Revenue<br>Generated</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Case Studies -->
+            <div class="case-studies-grid">
+                {% for case_study in case_studies %}
+                <div class="case-study-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|multiply:100 }}">
+                    <div class="case-study-content">
+                        <h3 class="case-study-title">{{ case_study.title }}</h3>
+                        <div class="case-study-meta">
+                            <span class="case-study-client">{{ case_study.client }}</span>
+                            <span class="case-study-industry">{{ case_study.industry }}</span>
+                        </div>
+                        <p class="case-study-description">{{ case_study.challenge|truncatechars:100 }}</p>
+                        <div class="case-study-impact">
+                            <div class="case-study-metric">
+                                <span class="case-study-metric-number">{{ case_study.result_metrics.key_metric_1.value }}</span>
+                                <span class="case-study-metric-label">{{ case_study.result_metrics.key_metric_1.label }}</span>
+                            </div>
+                            <div class="case-study-metric">
+                                <span class="case-study-metric-number">{{ case_study.result_metrics.key_metric_2.value }}</span>
+                                <span class="case-study-metric-label">{{ case_study.result_metrics.key_metric_2.label }}</span>
+                            </div>
+                        </div>
+                        <a href="{% url 'core:case_study_detail' case_study.slug %}" class="case-study-link">View Case Study <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                {% empty %}
+                <!-- Fallback case studies if none exist in the database yet -->
+                <div class="case-study-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="case-study-content">
+                        <h3 class="case-study-title">SaaS Growth Acceleration</h3>
+                        <div class="case-study-meta">
+                            <span class="case-study-client">TechFlow Solutions</span>
+                            <span class="case-study-industry">B2B SaaS</span>
+                        </div>
+                        <p class="case-study-description">Helped a struggling SaaS startup reposition their product and implement a data-driven marketing strategy.</p>
+                        <div class="case-study-impact">
+                            <div class="case-study-metric">
+                                <span class="case-study-metric-number">217%</span>
+                                <span class="case-study-metric-label">MRR Growth</span>
+                            </div>
+                            <div class="case-study-metric">
+                                <span class="case-study-metric-number">43%</span>
+                                <span class="case-study-metric-label">CAC Reduction</span>
+                            </div>
+                        </div>
+                        <a href="#" class="case-study-link">View Case Study <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="case-study-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="case-study-content">
+                        <h3 class="case-study-title">E-commerce Revenue Optimization</h3>
+                        <div class="case-study-meta">
+                            <span class="case-study-client">Urban Lifestyle</span>
+                            <span class="case-study-industry">E-commerce</span>
+                        </div>
+                        <p class="case-study-description">Developed comprehensive digital marketing strategy for a lifestyle brand looking to scale their online presence.</p>
+                        <div class="case-study-impact">
+                            <div class="case-study-metric">
+                                <span class="case-study-metric-number">156%</span>
+                                <span class="case-study-metric-label">Revenue Increase</span>
+                            </div>
+                            <div class="case-study-metric">
+                                <span class="case-study-metric-number">3.2x</span>
+                                <span class="case-study-metric-label">ROAS</span>
+                            </div>
+                        </div>
+                        <a href="#" class="case-study-link">View Case Study <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="case-study-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="case-study-content">
+                        <h3 class="case-study-title">B2B Lead Generation</h3>
+                        <div class="case-study-meta">
+                            <span class="case-study-client">GlobalTech Solutions</span>
+                            <span class="case-study-industry">Professional Services</span>
+                        </div>
+                        <p class="case-study-description">Created an integrated demand generation strategy for a consulting firm facing stagnant growth and increased competition.</p>
+                        <div class="case-study-impact">
+                            <div class="case-study-metric">
+                                <span class="case-study-metric-number">189%</span>
+                                <span class="case-study-metric-label">Lead Growth</span>
+                            </div>
+                            <div class="case-study-metric">
+                                <span class="case-study-metric-number">37%</span>
+                                <span class="case-study-metric-label">Conversion Lift</span>
+                            </div>
+                        </div>
+                        <a href="#" class="case-study-link">View Case Study <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Results Section Styles */
+    .results {
+        background-color: var(--light);
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .blob-results-1 {
+        position: absolute;
+        width: 800px;
+        height: 800px;
+        top: -200px;
+        right: -200px;
+        z-index: 0;
+    }
+    
+    .results-container {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .results-header {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 4rem;
+    }
+    
+    .results-metrics {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        margin-bottom: 4rem;
+        flex-wrap: wrap;
+    }
+    
+    .metric-circle {
+        text-align: center;
+    }
+    
+    .metric-outer-ring {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        background: conic-gradient(var(--primary) 0%, var(--accent) 50%, var(--secondary) 100%);
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 20px 30px -10px rgba(59, 130, 246, 0.3);
+        position: relative;
+    }
+    
+    .metric-inner-content {
+        width: 100%;
+        height: 100%;
+        background-color: var(--light);
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+    }
+    
+    .metric-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary);
+        font-family: var(--font-primary);
+        line-height: 1;
+        margin-bottom: 0.25rem;
+    }
+    
+    .metric-label {
+        font-size: 0.875rem;
+        color: var(--dark);
+        text-align: center;
+        line-height: 1.2;
+        font-weight: 500;
+    }
+    
+    .case-studies-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 2rem;
+    }
+    
+    .case-study-card {
+        background-color: var(--light);
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.05);
+        border: 1px solid var(--gray-light);
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .case-study-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 30px 40px -15px rgba(0, 0, 0, 0.1);
+        border-color: var(--primary);
+    }
+    
+    .case-study-content {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    
+    .case-study-title {
+        margin-bottom: 0.75rem;
+        font-size: 1.25rem;
+        color: var(--dark);
+    }
+    
+    .case-study-meta {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        font-size: 0.875rem;
+    }
+    
+    .case-study-client {
+        color: var(--primary);
+        font-weight: 600;
+    }
+    
+    .case-study-industry {
+        color: var(--gray);
+        background-color: var(--gray-light);
+        padding: 0.25rem 0.75rem;
+        border-radius: 50px;
+        font-size: 0.75rem;
+    }
+    
+    .case-study-description {
+        color: var(--gray);
+        font-size: 0.9375rem;
+        margin-bottom: 1.5rem;
+        flex-grow: 1;
+    }
+    
+    .case-study-impact {
+        margin-bottom: 1.5rem;
+        margin-top: auto;
+    }
+    
+    .case-study-metric {
+        display: flex;
+        align-items: baseline;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .case-study-metric-number {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--success);
+        font-family: var(--font-primary);
+    }
+    
+    .case-study-metric-label {
+        font-size: 0.875rem;
+        color: var(--gray);
+    }
+    
+    .case-study-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        font-family: var(--font-primary);
+        font-size: 0.9375rem;
+        transition: all 0.3s ease;
+    }
+    
+    .case-study-link i {
+        transition: transform 0.3s ease;
+    }
+    
+    .case-study-link:hover i {
+        transform: translateX(5px);
+    }
+    
+    @media (max-width: 768px) {
+        .results-metrics {
+            gap: 2rem;
+        }
+        
+        .metric-outer-ring {
+            width: 140px;
+            height: 140px;
+        }
+        
+        .metric-number {
+            font-size: 1.75rem;
+        }
+        
+        .case-studies-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

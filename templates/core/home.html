@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Amit Bhalla | Marketing Architect | Growth Catalyst{% endblock %}
+
+{% block extra_style %}
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    margin-top: -96px; /* Offset for fixed header */
+    padding-top: 96px;
+}
+
+.hero-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.hero-content {
+    color: var(--light);
+    max-width: 650px;
+    position: relative;
+    z-index: 5;
+    padding: 2rem 0;
+}
+
+.hero-subtitle {
+    display: flex;
+    align-items: center;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+}
+
+.hero-subtitle::before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 2px;
+    background-color: var(--accent);
+    margin-right: 1rem;
+}
+
+.hero-title {
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.hero-description {
+    font-size: clamp(1.125rem, 2vw, 1.25rem);
+    margin-bottom: 2rem;
+    opacity: 0.9;
+    max-width: 35ch;
+}
+
+.hero-cta {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.hero-img-container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--darker) 0%, rgba(0, 0, 0, 0) 50%);
+}
+
+@media (max-width: 992px) {
+    .hero-img-container {
+        width: 100%;
+        clip-path: none;
+        opacity: 0.2;
+    }
+    .hero-overlay {
+        background: rgba(15, 23, 42, 0.8);
+    }
+    .hero-content {
+        max-width: 100%;
+    }
+}
+{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <!-- Blob SVGs -->
+        <div class="blob blob-1">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path fill="var(--accent)" d="M40.5,-65.1C50.9,-55.7,56.9,-41.9,62.9,-28.2C69,-14.5,75.1,-0.9,74.3,12.7C73.4,26.3,65.7,39.8,54.8,50.2C43.8,60.6,29.7,68,14.3,73.7C-1,79.5,-17.7,83.6,-33.3,79.7C-48.9,75.7,-63.5,63.7,-70.9,48.6C-78.3,33.5,-78.6,15.3,-75.6,-0.7C-72.6,-16.8,-66.3,-30.6,-56.9,-40.9C-47.5,-51.3,-35.1,-58.2,-22.1,-65.4C-9.1,-72.5,4.3,-80,18.2,-79.2C32.1,-78.5,46.5,-69.6,40.5,-65.1Z" transform="translate(100 100)" />
+            </svg>
+        </div>
+        <div class="blob blob-2">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path fill="var(--primary)" d="M42.8,-75.1C54.9,-67.3,64,-54.3,69.9,-40.8C75.9,-27.3,78.8,-13.6,79.3,0.6C79.9,14.8,78.2,29.6,71.1,41C64,52.4,51.6,60.3,38.5,67.6C25.5,74.8,11.8,81.3,-2.4,84.7C-16.6,88.1,-33.1,88.4,-46.3,81.5C-59.5,74.7,-69.3,60.8,-77.1,46.2C-84.9,31.7,-90.6,16.3,-90.2,0.2C-89.9,-15.8,-83.4,-32,-73.8,-45.2C-64.2,-58.5,-51.6,-68.8,-37.9,-75.7C-24.2,-82.5,-9.5,-85.9,3.9,-83.5C17.3,-81,35.8,-72.9,42.8,-75.1Z" transform="translate(100 100)" />
+            </svg>
+        </div>
+        
+        <div class="container hero-container">
+            <div class="hero-content" data-aos="fade-up">
+                <span class="hero-subtitle">Marketing Architect & Growth Catalyst</span>
+                <h1 class="hero-title">Transform Your Marketing Strategy for <span class="text-gradient">Sustainable Growth</span></h1>
+                <p class="hero-description">
+                    I help ambitious businesses build strategic marketing frameworks that drive predictable revenue and sustainable growth.
+                </p>
+                <div class="hero-cta">
+                    <a href="#services" class="btn btn-primary">Explore Services</a>
+                    <a href="#contact" class="btn btn-outline">Get in Touch</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hero-img-container">
+            <div class="hero-overlay"></div>
+            <img src="{% static 'images/home-bg.png' %}" alt="Marketing Strategy" class="hero-img">
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    {% include 'core/components/problem.html' %}
+
+    <!-- Solution Section -->
+    {% include 'core/components/solution.html' %}
+
+    <!-- Services Section -->
+    {% include 'core/components/services.html' %}
+
+    <!-- Process Section -->
+    {% include 'core/components/process.html' %}
+
+    <!-- Results Section -->
+    {% include 'core/components/results.html' %}
+
+    <!-- Testimonials Section -->
+    {% include 'core/components/testimonials.html' %}
+
+    <!-- Free Resources Section -->
+    {% include 'core/components/resources.html' %}
+
+    <!-- FAQ Section -->
+    {% include 'core/components/faq.html' %}
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container cta-container">
+            <div class="cta-content" data-aos="fade-up">
+                <h2 class="cta-title">Ready to Transform Your Marketing Strategy?</h2>
+                <p class="cta-description">
+                    Let's work together to create a marketing plan that drives tangible business growth and delivers consistent results.
+                </p>
+                <a href="#contact" class="btn btn-primary cta-btn">Book a Strategy Call</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Add any additional JavaScript needed for the homepage
+</script>
+{% endblock %}

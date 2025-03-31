@@ -1,0 +1,360 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+
+{% block title %}Services | Amit Bhalla - Marketing Architect{% endblock %}
+
+{% block extra_style %}
+/* Services Page Specific Styles */
+.page-header {
+    background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+    padding: 8rem 0 4rem;
+    position: relative;
+    overflow: hidden;
+    color: var(--light);
+}
+
+.page-header-content {
+    position: relative;
+    z-index: 2;
+    max-width: 850px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.page-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+}
+
+.page-description {
+    font-size: 1.125rem;
+    opacity: 0.9;
+    max-width: 650px;
+    margin: 0 auto 1.5rem;
+}
+
+.page-blob {
+    position: absolute;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.page-blob-1 {
+    top: -20%;
+    right: -10%;
+    width: 50%;
+    height: auto;
+}
+
+.services-section {
+    padding: 5rem 0;
+    background-color: var(--light);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2.5rem;
+    margin-top: 3rem;
+}
+
+.service-card {
+    background-color: var(--light);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--gray-light);
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 30px 40px -15px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary);
+}
+
+.service-image {
+    width: 100%;
+    height: 200px;
+    background-color: var(--gray-light);
+    position: relative;
+    overflow: hidden;
+}
+
+.service-image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: var(--light);
+    font-size: 4rem;
+    opacity: 0.8;
+}
+
+.service-content {
+    padding: 2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--dark);
+}
+
+.service-description {
+    color: var(--gray);
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.service-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+.service-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    transition: all 0.3s ease;
+}
+
+.service-link i {
+    transition: transform 0.3s ease;
+}
+
+.service-link:hover i {
+    transform: translateX(5px);
+}
+
+.benefits-section {
+    background-color: #f8fafc;
+    padding: 5rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.benefit-card {
+    background-color: var(--light);
+    padding: a2rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--gray-light);
+    transition: all 0.3s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.1);
+}
+
+.benefit-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(59, 130, 246, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    color: var(--primary);
+    font-size: 1.5rem;
+}
+
+.benefit-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: var(--dark);
+}
+
+.benefit-description {
+    color: var(--gray);
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+.section-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+}
+
+.section-title {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    margin-bottom: 1rem;
+}
+
+.section-subtitle {
+    font-size: 1.125rem;
+    color: var(--gray);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+}
+{% endblock %}
+
+{% block content %}
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-blob page-blob-1">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path fill="var(--accent)" d="M40.5,-65.1C50.9,-55.7,56.9,-41.9,62.9,-28.2C69,-14.5,75.1,-0.9,74.3,12.7C73.4,26.3,65.7,39.8,54.8,50.2C43.8,60.6,29.7,68,14.3,73.7C-1,79.5,-17.7,83.6,-33.3,79.7C-48.9,75.7,-63.5,63.7,-70.9,48.6C-78.3,33.5,-78.6,15.3,-75.6,-0.7C-72.6,-16.8,-66.3,-30.6,-56.9,-40.9C-47.5,-51.3,-35.1,-58.2,-22.1,-65.4C-9.1,-72.5,4.3,-80,18.2,-79.2C32.1,-78.5,46.5,-69.6,40.5,-65.1Z" transform="translate(100 100)" />
+            </svg>
+        </div>
+        
+        <div class="container">
+            <div class="page-header-content">
+                <h1 class="page-title">Marketing Services</h1>
+                <p class="page-description">
+                    Comprehensive marketing solutions designed to help your business grow, build brand authority, and achieve measurable results.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Tailored Marketing Solutions for Your Business</h2>
+                <p class="section-subtitle">
+                    Choose from a range of specialized marketing services, each designed to address specific business challenges and growth opportunities.
+                </p>
+            </div>
+            
+            <div class="services-grid">
+                {% for service in services %}
+                <div class="service-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|multiply:100 }}">
+                    <div class="service-image">
+                        {% if service.image %}
+                        <img src="{{ service.image.url }}" alt="{{ service.title }}">
+                        {% else %}
+                        <div class="service-image-placeholder">
+                            <i class="{{ service.icon_class }}"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="service-content">
+                        <h3 class="service-title">{{ service.title }}</h3>
+                        <p class="service-description">{{ service.short_description }}</p>
+                        <div class="service-footer">
+                            <a href="{% url 'core:service_detail' service.slug %}" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose My Marketing Services?</h2>
+                <p class="section-subtitle">
+                    My approach focuses on delivering real, measurable results through data-driven strategies and tailored solutions.
+                </p>
+            </div>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="benefit-title">Data-Driven Approach</h3>
+                    <p class="benefit-description">Every strategy is backed by thorough research and analytics, ensuring decisions are informed by data rather than assumptions.</p>
+                </div>
+                
+                <div class="benefit-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="benefit-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3 class="benefit-title">Results-Focused</h3>
+                    <p class="benefit-description">Clear KPIs and measurement frameworks ensure every marketing effort contributes directly to your business objectives.</p>
+                </div>
+                
+                <div class="benefit-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="benefit-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="benefit-title">Customer-Centric</h3>
+                    <p class="benefit-description">Strategies are built around deep customer insights, ensuring your marketing resonates with your target audience.</p>
+                </div>
+                
+                <div class="benefit-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="benefit-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="benefit-title">Scalable Systems</h3>
+                    <p class="benefit-description">Marketing frameworks designed to grow with your business, providing sustainable results over time.</p>
+                </div>
+                
+                <div class="benefit-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="benefit-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3 class="benefit-title">Agile Implementation</h3>
+                    <p class="benefit-description">Rapid testing and optimization ensure strategies adapt quickly to changing market conditions and opportunities.</p>
+                </div>
+                
+                <div class="benefit-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="benefit-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 class="benefit-title">Transparent Collaboration</h3>
+                    <p class="benefit-description">Clear communication and regular updates keep you informed throughout the process, with no black-box approaches.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container cta-container">
+            <div class="cta-content" data-aos="fade-up">
+                <h2 class="cta-title">Ready to Elevate Your Marketing?</h2>
+                <p class="cta-description">
+                    Let's discuss how my marketing services can help your business achieve sustainable growth and measurable results.
+                </p>
+                <a href="#contact" class="btn btn-primary cta-btn">Schedule a Consultation</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Additional JavaScript for services page if needed
+</script>
+{% endblock %}

@@ -1,0 +1,160 @@
+<section class="solution" id="solution">
+    <!-- Blob SVGs for solution section -->
+    <div class="blob blob-3">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path fill="var(--accent)" d="M40.9,-69.5C53.1,-63.2,63.2,-51.7,69.5,-38.5C75.9,-25.3,78.5,-10.4,77.1,4.1C75.8,18.6,70.4,32.6,61.7,44.7C53,56.7,40.9,66.7,27.1,72.3C13.4,77.9,-1.9,79.2,-16.5,75.9C-31,72.7,-44.7,65,-57.2,54.2C-69.7,43.5,-80.9,29.7,-84.1,14C-87.3,-1.7,-82.6,-19.3,-73.7,-32.9C-64.7,-46.5,-51.4,-56.2,-37.7,-61.6C-24,-67.1,-9.9,-68.2,3.3,-69.8C16.5,-71.4,33,-75.9,40.9,-69.5Z"></path>
+        </svg>
+    </div>
+    
+    <div class="container solution-container">
+        <div class="solution-grid">
+            <div class="solution-content" data-aos="fade-right">
+                <span class="section-tag">The Solution</span>
+                <h2 class="solution-title">Data-Driven Marketing That <span class="text-gradient">Delivers Results</span></h2>
+                <p class="solution-description">
+                    I create customized marketing strategies that align with your business goals, target the right audience, and deliver measurable ROI.
+                </p>
+                
+                <div class="solution-features">
+                    <div class="solution-feature">
+                        <div class="solution-feature-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <div class="solution-feature-content">
+                            <h3>Targeted Strategy</h3>
+                            <p>Marketing plans tailored to your specific business goals, industry, and target audience.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="solution-feature">
+                        <div class="solution-feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="solution-feature-content">
+                            <h3>Growth Framework</h3>
+                            <p>Scalable marketing frameworks that grow with your business and adapt to changing market conditions.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="solution-feature">
+                        <div class="solution-feature-icon">
+                            <i class="fas fa-analytics"></i>
+                        </div>
+                        <div class="solution-feature-content">
+                            <h3>Data Analytics</h3>
+                            <p>Comprehensive performance metrics and analytics to track ROI and optimize campaigns.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="solution-image-container" data-aos="fade-left">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80" alt="Data-Driven Marketing Strategy" class="solution-image">
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Solution Section Styles */
+    .solution {
+        background-color: var(--darker);
+        color: var(--light);
+        position: relative;
+    }
+    
+    .solution::before {
+        content: '';
+        position: absolute;
+        width: 800px;
+        height: 800px;
+        background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+        top: -200px;
+        right: -200px;
+        border-radius: 50%;
+        z-index: 1;
+    }
+    
+    .solution-container {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .solution-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+    }
+    
+    .solution-title {
+        margin-bottom: 1.5rem;
+        color: var(--light);
+    }
+    
+    .solution-description {
+        font-size: 1.125rem;
+        margin-bottom: 2.5rem;
+        opacity: 0.9;
+    }
+    
+    .solution-features {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .solution-feature {
+        display: flex;
+        gap: 1.5rem;
+    }
+    
+    .solution-feature-icon {
+        flex: 0 0 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: rgba(59, 130, 246, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent);
+        font-size: 1.25rem;
+    }
+    
+    .solution-feature-content h3 {
+        font-size: 1.125rem;
+        margin-bottom: 0.5rem;
+        color: var(--accent);
+    }
+    
+    .solution-feature-content p {
+        font-size: 1rem;
+        opacity: 0.8;
+        margin-bottom: 0;
+    }
+    
+    .solution-image-container {
+        position: relative;
+        border-radius: 1rem;
+        overflow: hidden;
+        box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
+    }
+    
+    .solution-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    
+    @media (max-width: 992px) {
+        .solution-grid {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+        
+        .solution-image-container {
+            order: -1;
+        }
+    }
+</style>

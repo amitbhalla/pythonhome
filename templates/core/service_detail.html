@@ -1,0 +1,743 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+
+{% block title %}{{ service.title }} | Amit Bhalla - Marketing Architect{% endblock %}
+
+{% block extra_style %}
+/* Service Detail Page Specific Styles */
+.service-header {
+    background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+    padding: 8rem 0 4rem;
+    position: relative;
+    overflow: hidden;
+    color: var(--light);
+}
+
+.service-header-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.service-icon-large {
+    font-size: 2.5rem;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--accent);
+}
+
+.service-title-main {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+}
+
+.service-intro {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.page-blob {
+    position: absolute;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.page-blob-1 {
+    top: -20%;
+    right: -10%;
+    width: 50%;
+    height: auto;
+}
+
+.service-overview {
+    padding: 5rem 0;
+    background-color: var(--light);
+}
+
+.service-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.service-description {
+    font-size: 1.125rem;
+    color: var(--gray);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+}
+
+.service-description p {
+    margin-bottom: 1.5rem;
+}
+
+.service-description h3 {
+    color: var(--dark);
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem;
+}
+
+.service-image-full {
+    border-radius: 1rem;
+    overflow: hidden;
+    margin: 2.5rem 0;
+    box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.1);
+}
+
+.service-image-full img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.service-features {
+    background-color: #f8fafc;
+    padding: 5rem 0;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.feature-card {
+    background-color: var(--light);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--gray-light);
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary);
+}
+
+.feature-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(59, 130, 246, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    color: var(--primary);
+    font-size: 1.25rem;
+}
+
+.feature-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: var(--dark);
+}
+
+.feature-description {
+    color: var(--gray);
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+.process-section {
+    padding: 5rem 0;
+    background-color: var(--light);
+}
+
+.process-steps {
+    max-width: 900px;
+    margin: 3rem auto 0;
+}
+
+.process-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-bottom: 4rem;
+    position: relative;
+}
+
+.process-step:last-child {
+    margin-bottom: 0;
+}
+
+.process-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 80px;
+    left: 35px;
+    width: 2px;
+    height: calc(100% - 60px);
+    background-color: var(--gray-light);
+}
+
+.step-number {
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--light);
+    font-size: 1.5rem;
+    font-weight: 700;
+    z-index: 1;
+}
+
+.step-content {
+    flex-grow: 1;
+    padding-top: 0.5rem;
+}
+
+.step-title {
+    font-size: 1.375rem;
+    margin-bottom: 0.75rem;
+    color: var(--dark);
+}
+
+.step-description {
+    color: var(--gray);
+    font-size: 1.0625rem;
+    margin-bottom: 0;
+}
+
+.section-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+}
+
+.section-title {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    margin-bottom: 1rem;
+}
+
+.section-subtitle {
+    font-size: 1.125rem;
+    color: var(--gray);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.service-faq {
+    background-color: #f8fafc;
+    padding: 5rem 0;
+}
+
+.faq-list {
+    max-width: 900px;
+    margin: 3rem auto 0;
+}
+
+.faq-item {
+    background-color: var(--light);
+    border-radius: 1rem;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    border: 1px solid var(--gray-light);
+    transition: all 0.3s ease;
+}
+
+.faq-item:last-child {
+    margin-bottom: 0;
+}
+
+.faq-question {
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--dark);
+    font-weight: 600;
+    font-size: 1.125rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.faq-question i {
+    transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    padding: 0 1.5rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+    padding: 0 1.5rem 1.5rem;
+    max-height: 500px;
+}
+
+.faq-answer p {
+    color: var(--gray);
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+.related-services {
+    padding: 5rem 0;
+    background-color: var(--light);
+}
+
+.related-services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.related-service-card {
+    background-color: var(--light);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--gray-light);
+    transition: all 0.3s ease;
+}
+
+.related-service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 40px -15px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary);
+}
+
+.related-service-image {
+    height: 160px;
+    background-color: var(--gray-light);
+    position: relative;
+    overflow: hidden;
+}
+
+.related-service-image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    color: var(--light);
+    font-size: 3rem;
+    opacity: 0.8;
+}
+
+.related-service-content {
+    padding: 1.5rem;
+}
+
+.related-service-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: var(--dark);
+}
+
+.related-service-description {
+    color: var(--gray);
+    font-size: 0.9375rem;
+    margin-bottom: 1rem;
+}
+
+.related-service-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+}
+
+.related-service-link i {
+    transition: transform 0.3s ease;
+}
+
+.related-service-link:hover i {
+    transform: translateX(5px);
+}
+
+@media (max-width: 768px) {
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+    .process-step {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .process-step:not(:last-child)::after {
+        left: 35px;
+        top: 80px;
+        height: calc(100% - 60px);
+    }
+    .related-services-grid {
+        grid-template-columns: 1fr;
+    }
+}
+{% endblock %}
+
+{% block content %}
+    <!-- Service Header -->
+    <section class="service-header">
+        <div class="page-blob page-blob-1">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path fill="var(--accent)" d="M40.5,-65.1C50.9,-55.7,56.9,-41.9,62.9,-28.2C69,-14.5,75.1,-0.9,74.3,12.7C73.4,26.3,65.7,39.8,54.8,50.2C43.8,60.6,29.7,68,14.3,73.7C-1,79.5,-17.7,83.6,-33.3,79.7C-48.9,75.7,-63.5,63.7,-70.9,48.6C-78.3,33.5,-78.6,15.3,-75.6,-0.7C-72.6,-16.8,-66.3,-30.6,-56.9,-40.9C-47.5,-51.3,-35.1,-58.2,-22.1,-65.4C-9.1,-72.5,4.3,-80,18.2,-79.2C32.1,-78.5,46.5,-69.6,40.5,-65.1Z" transform="translate(100 100)" />
+            </svg>
+        </div>
+        
+        <div class="container">
+            <div class="service-header-content">
+                <div class="service-icon-large">
+                    <i class="{{ service.icon_class }}"></i>
+                </div>
+                <h1 class="service-title-main">{{ service.title }}</h1>
+                <p class="service-intro">
+                    {{ service.short_description }}
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Overview -->
+    <section class="service-overview">
+        <div class="container">
+            <div class="service-content">
+                <div class="service-description">
+                    {{ service.description|safe }}
+                </div>
+                
+                {% if service.image %}
+                <div class="service-image-full">
+                    <img src="{{ service.image.url }}" alt="{{ service.title }}">
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Features -->
+    <section class="service-features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Key Features & Benefits</h2>
+                <p class="section-subtitle">
+                    Why this service is essential for your marketing success and how it delivers concrete results.
+                </p>
+            </div>
+            
+            <div class="feature-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="0">
+                    <div class="feature-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3 class="feature-title">Strategic Targeting</h3>
+                    <p class="feature-description">
+                        Identify and connect with your ideal customers using data-driven audience profiling.
+                    </p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Measurable Results</h3>
+                    <p class="feature-description">
+                        Track key performance metrics to continuously optimize and improve campaign performance.
+                    </p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title">Customer-Centric</h3>
+                    <p class="feature-description">
+                        Create messaging that resonates with your audience's needs, pain points, and aspirations.
+                    </p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="feature-title">Scalable Systems</h3>
+                    <p class="feature-description">
+                        Implement frameworks that can grow with your business and adapt to changing conditions.
+                    </p>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Agile Approach</h3>
+                    <p class="feature-description">
+                        Quick iterations based on real-world feedback ensure your marketing stays relevant and effective.
+                    </p>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 class="feature-title">Collaborative Process</h3>
+                    <p class="feature-description">
+                        Work together throughout the process with transparent communication and regular updates.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">My Approach & Process</h2>
+                <p class="section-subtitle">
+                    A systematic methodology that delivers consistent, reliable results for your marketing initiatives.
+                </p>
+            </div>
+            
+            <div class="process-steps">
+                <!-- Step 1 -->
+                <div class="process-step" data-aos="fade-up" data-aos-delay="0">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Discovery & Analysis</h3>
+                        <p class="step-description">
+                            Comprehensive assessment of your current marketing position, competitive landscape, and target audience to establish a clear baseline and identify opportunities.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="process-step" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Strategy Development</h3>
+                        <p class="step-description">
+                            Creation of a tailored marketing plan with clear objectives, messaging frameworks, channel selection, and measurement criteria aligned with your business goals.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="process-step" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Implementation & Execution</h3>
+                        <p class="step-description">
+                            Systematic rollout of marketing initiatives across selected channels, with careful attention to quality, brand consistency, and tactical coordination.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="process-step" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Monitoring & Optimization</h3>
+                        <p class="step-description">
+                            Continuous tracking of performance metrics with regular analysis and adjustments to maximize ROI and improve results over time.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Step 5 -->
+                <div class="process-step" data-aos="fade-up" data-aos-delay="400">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Reporting & Refinement</h3>
+                        <p class="step-description">
+                            Comprehensive performance reports with actionable insights and strategic recommendations for future marketing initiatives.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service FAQ -->
+    <section class="service-faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">
+                    Common questions about this service and how it can benefit your business.
+                </p>
+            </div>
+            
+            <div class="faq-list">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="0">
+                    <div class="faq-question">
+                        <span>How soon can I expect to see results?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>
+                            Results timelines vary depending on your specific situation, industry, competition, and current market position. Generally, initial indicators of progress can be seen within 1-3 months, with more substantial results emerging over 3-6 months. I'll establish clear expectations and milestones during our strategy development phase.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="faq-question">
+                        <span>How do you measure success for this service?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>
+                            Success metrics are tailored to your specific business objectives and can include: lead generation numbers, conversion rates, customer acquisition costs, ROI, engagement metrics, brand awareness increases, and revenue growth. We'll establish clear KPIs at the beginning of our engagement that align with your business goals.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="faq-question">
+                        <span>What makes your approach different from other marketing services?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>
+                            My approach combines data-driven strategy with customer-centric execution. I focus on sustainable, long-term results rather than quick fixes, and emphasize building marketing systems that deliver consistent results over time. Additionally, my experience across multiple industries allows me to bring proven methodologies and fresh perspectives to your unique challenges.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="faq-question">
+                        <span>Do you provide ongoing support after implementation?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>
+                            Yes, I offer various support options following implementation. These include monthly optimization services, quarterly strategy reviews, training for your team, and ongoing consulting arrangements. The specific support structure will depend on your needs and can be customized accordingly.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 5 -->
+                <div class="faq-item" data-aos="fade-up" data-aos-delay="400">
+                    <div class="faq-question">
+                        <span>What information do you need to get started?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>
+                            To begin effectively, I'll need insights into your business goals, target audience, current marketing efforts, competitive landscape, and any existing customer data or research. I'll provide a detailed questionnaire and conduct discovery meetings to gather this information systematically at the start of our engagement.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Related Services -->
+    <section class="related-services">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Related Services</h2>
+                <p class="section-subtitle">
+                    Explore other marketing solutions that complement this service
+                </p>
+            </div>
+            
+            <div class="related-services-grid">
+                {% for related_service in related_services %}
+                <div class="related-service-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|multiply:100 }}">
+                    <div class="related-service-image">
+                        {% if related_service.image %}
+                        <img src="{{ related_service.image.url }}" alt="{{ related_service.title }}">
+                        {% else %}
+                        <div class="related-service-image-placeholder">
+                            <i class="{{ related_service.icon_class }}"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="related-service-content">
+                        <h3 class="related-service-title">{{ related_service.title }}</h3>
+                        <p class="related-service-description">
+                            {{ related_service.short_description|truncatechars:120 }}
+                        </p>
+                        <a href="{% url 'core:service_detail' related_service.slug %}" class="related-service-link">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container cta-container">
+            <div class="cta-content" data-aos="fade-up">
+                <h2 class="cta-title">Ready to Elevate Your Marketing?</h2>
+                <p class="cta-description">
+                    Let's discuss how my {{ service.title }} service can help your business achieve measurable results.
+                </p>
+                <a href="#contact" class="btn btn-primary cta-btn">Schedule a Consultation</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // FAQ accordion functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                // Toggle current item
+                item.classList.toggle('active');
+                
+                // Optional: Close other items when opening one
+                // faqItems.forEach(otherItem => {
+                //     if (otherItem !== item) {
+                //         otherItem.classList.remove('active');
+                //     }
+                // });
+            });
+        });
+    });
+</script>
+{% endblock %}

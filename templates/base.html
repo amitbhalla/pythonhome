@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Amit Bhalla | Marketing Architect | Growth Catalyst{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    {% block extra_css %}{% endblock %}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+
+        /* Base Styles */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #4f46e5;
+            --secondary-dark: #4338ca;
+            --dark: #1e293b;
+            --darker: #0f172a;
+            --light: #ffffff;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --accent: #3b82f6;
+            --accent-2: #4f46e5;
+            --success: #10b981;
+
+            --font-primary: 'Montserrat', sans-serif;
+            --font-secondary: 'Open Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 5rem;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-family: var(--font-secondary);
+            font-weight: 400;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-primary);
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: clamp(2.25rem, 5vw, 3rem);
+            letter-spacing: -0.01em;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: clamp(1.75rem, 4vw, 2.25rem);
+            margin-bottom: 1.25rem;
+            letter-spacing: normal;
+        }
+
+        h3 {
+            font-size: clamp(1.375rem, 2.5vw, 1.75rem);
+            margin-bottom: 1rem;
+            letter-spacing: normal;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            max-width: 65ch;
+            line-height: 1.5;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-family: var(--font-primary);
+            font-size: 0.875rem;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px -3px rgba(37, 99, 235, 0.3);
+            background: var(--primary-dark);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px -3px rgba(79, 70, 229, 0.3);
+            background: var(--secondary-dark);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--light);
+        }
+
+        .btn-outline:hover {
+            background: var(--light);
+            color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 35px -10px rgba(255, 255, 255, 0.3);
+        }
+
+        section {
+            padding: 5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* SVG Blob Patterns */
+        .blob {
+            position: absolute;
+            z-index: 0;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .blob-1 {
+            top: -15%;
+            right: -10%;
+            width: 40%;
+            height: auto;
+        }
+
+        .blob-2 {
+            bottom: -15%;
+            left: -10%;
+            width: 35%;
+            height: auto;
+        }
+
+        .blob-3 {
+            top: 40%;
+            right: -5%;
+            width: 25%;
+            height: auto;
+        }
+
+        .blob-4 {
+            bottom: 10%;
+            right: 10%;
+            width: 18%;
+            height: auto;
+        }
+
+        .blob-small {
+            width: 15% !important;
+        }
+
+        .blob-rotate {
+            transform: rotate(180deg);
+        }
+
+        .text-gradient {
+            color: var(--primary);
+            display: inline-block;
+        }
+
+        /* Header and Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: 1rem 0;
+            background-color: transparent;
+        }
+
+        .header.scrolled {
+            background-color: var(--dark);
+            padding: 0.75rem 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--light);
+            font-family: var(--font-primary);
+            font-weight: 700;
+            font-size: 1.5rem;
+            z-index: 10;
+        }
+
+        .logo span {
+            margin-left: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: var(--darker);
+            color: var(--light);
+            padding: 5rem 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-family: var(--font-primary);
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--light);
+        }
+
+        .footer-tagline {
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+            max-width: 300px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            color: var(--light);
+            text-decoration: none;
+        }
+
+        .footer-social-link:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-heading {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: var(--light);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-contact {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .footer-contact-icon {
+            margin-right: 1rem;
+            color: var(--accent);
+        }
+
+        .footer-contact-text {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+        }
+
+        /* Mobile Navigation */
+        @media (max-width: 992px) {
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 400px;
+                height: 100vh;
+                background-color: var(--darker);
+                flex-direction: column;
+                padding: 8rem 2rem 2rem;
+                transition: right 0.3s ease;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                gap: 1.5rem;
+                z-index: 5;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-backdrop {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(3px);
+                z-index: 4;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+
+            .nav-backdrop.active {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .section {
+                padding: 4rem 0;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+    
+    <!-- Extra styles from child templates -->
+    <style>
+        {% block extra_style %}{% endblock %}
+    </style>
+</head>
+<body>
+    <!-- SVG Definitions (hidden) -->
+    <svg width="0" height="0" style="position: absolute;">
+        <!-- Blob 1 -->
+        <defs>
+            <clipPath id="blob-1">
+                <path d="M43.1,-73.6C57.1,-67.5,70.3,-57.5,77.7,-44.2C85.1,-30.8,86.6,-14.4,83.5,0.6C80.4,15.6,72.7,29.3,64.4,42.7C56.1,56.1,47.1,69.3,34.7,74.6C22.3,79.8,6.5,77.2,-7.8,72.3C-22.1,67.5,-35,60.4,-47.7,51.7C-60.4,43,-73,32.6,-78.1,19.3C-83.2,5.9,-80.9,-10.5,-75.2,-25.4C-69.6,-40.3,-60.6,-53.7,-48.3,-60.7C-36,-67.7,-20.5,-68.3,-4.9,-60.3C10.7,-52.3,29.1,-79.7,43.1,-73.6Z"></path>
+            </clipPath>
+        </defs>
+    </svg>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container header-container">
+            <a href="{% url 'core:home' %}" class="logo">
+                <span>Amit Bhalla</span>
+            </a>
+            <button class="nav-toggle" id="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="nav-links" id="nav-links">
+                <a href="{% url 'core:home' %}#services">Services</a>
+                <a href="{% url 'core:home' %}#process">Process</a>
+                <a href="{% url 'core:home' %}#results">Results</a>
+                <a href="{% url 'core:blog_list' %}">Blog</a>
+                <a href="{% url 'core:resource_list' %}">Resources</a>
+                <a href="{% url 'core:home' %}#contact">Contact</a>
+            </nav>
+            <div class="nav-backdrop" id="nav-backdrop"></div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    {% block content %}{% endblock %}
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container footer-container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <span>Amit Bhalla</span>
+                    </div>
+                    <p class="footer-tagline">
+                        Expert marketing strategist helping businesses achieve remarkable growth through data-driven approaches.
+                    </p>
+                    <div class="footer-socials">
+                        <a href="#" class="footer-social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="footer-social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3 class="footer-heading">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'core:home' %}#services">Services</a></li>
+                        <li><a href="{% url 'core:home' %}#process">Process</a></li>
+                        <li><a href="{% url 'core:home' %}#results">Results</a></li>
+                        <li><a href="{% url 'core:blog_list' %}">Blog</a></li>
+                        <li><a href="{% url 'core:resource_list' %}">Resources</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h3 class="footer-heading">Contact</h3>
+                    <div class="footer-contact">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            hello@amitbhalla.com
+                        </div>
+                    </div>
+                    <div class="footer-contact">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            +1 (555) 123-4567
+                        </div>
+                    </div>
+                    <div class="footer-contact">
+                        <div class="footer-contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="footer-contact-text">
+                            New York, NY, USA
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; {% now "Y" %} Amit Bhalla. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // AOS Animation
+        document.addEventListener('DOMContentLoaded', function () {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-out',
+                once: true
+            });
+
+            // Header Scroll Effect
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // Mobile Menu Toggle
+            const navToggle = document.getElementById('nav-toggle');
+            const navLinks = document.getElementById('nav-links');
+            const navBackdrop = document.getElementById('nav-backdrop');
+
+            function toggleNav() {
+                navLinks.classList.toggle('active');
+                navBackdrop.classList.toggle('active');
+                document.body.classList.toggle('no-scroll');
+            }
+
+            navToggle.addEventListener('click', toggleNav);
+            navBackdrop.addEventListener('click', toggleNav);
+
+            // Close mobile menu when a link is clicked and handle navigation links
+            const navLinkEls = navLinks.querySelectorAll('a');
+            navLinkEls.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Close mobile menu
+                    navLinks.classList.remove('active');
+                    navBackdrop.classList.remove('active');
+                    document.body.classList.remove('no-scroll');
+                    
+                    // Apply smooth scrolling (handled by the global listener below)
+                });
+            });
+            
+            // Implement smooth scrolling for ALL anchor links (navigation and CTA buttons)
+            document.addEventListener('click', function(e) {
+                // Check if the clicked element is an anchor link
+                const link = e.target.closest('a');
+                if (!link) return;
+                
+                const href = link.getAttribute('href');
+                if (!href || !href.includes('#')) return;
+                
+                const isHomePage = window.location.pathname === '/' || 
+                                 window.location.pathname.endsWith('/home/');
+                
+                // Only apply smooth scrolling if we're already on the home page
+                if (isHomePage || href.startsWith('#')) {
+                    // Extract the hash portion
+                    const hash = href.includes('#') ? href.substring(href.indexOf('#')) : href;
+                    const targetElement = document.querySelector(hash);
+                    
+                    if (targetElement) {
+                        e.preventDefault();
+                        // Account for fixed header
+                        const headerHeight = document.querySelector('.header').offsetHeight;
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Update URL without reload
+                        history.pushState(null, null, hash);
+                    }
+                }
+            });
+            
+            // Handle scroll to section if URL contains hash on page load
+            if (window.location.hash) {
+                setTimeout(() => {
+                    const targetElement = document.querySelector(window.location.hash);
+                    if (targetElement) {
+                        const headerHeight = document.querySelector('.header').offsetHeight;
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 300); // Small delay to ensure page is fully loaded
+            }
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

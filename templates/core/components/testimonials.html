@@ -1,0 +1,202 @@
+{% load custom_filters %}
+<section class="testimonials" id="testimonials">
+    <!-- Blob SVGs for testimonials -->
+    <div class="blob blob-1 blob-small">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path fill="var(--accent-2)" d="M43.1,-73.6C57.1,-67.5,70.3,-57.5,77.7,-44.2C85.1,-30.8,86.6,-14.4,83.5,0.6C80.4,15.6,72.7,29.3,64.4,42.7C56.1,56.1,47.1,69.3,34.7,74.6C22.3,79.8,6.5,77.2,-7.8,72.3C-22.1,67.5,-35,60.4,-47.7,51.7C-60.4,43,-73,32.6,-78.1,19.3C-83.2,5.9,-80.9,-10.5,-75.2,-25.4C-69.6,-40.3,-60.6,-53.7,-48.3,-60.7C-36,-67.7,-20.5,-68.3,-4.9,-60.3C10.7,-52.3,29.1,-79.7,43.1,-73.6Z"></path>
+        </svg>
+    </div>
+    
+    <div class="container testimonials-container">
+        <div class="testimonials-header">
+            <span class="section-tag">What Clients Say</span>
+            <h2>Success Stories From <span class="text-gradient">Industry Leaders</span></h2>
+            <p>
+                I've had the privilege of working with forward-thinking executives and marketing leaders across various industries. Here's what they have to say about our collaboration.
+            </p>
+        </div>
+        
+        <div class="testimonials-grid">
+            {% for testimonial in testimonials %}
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|multiply:100 }}">
+                <div class="testimonial-content">
+                    {{ testimonial.content }}
+                </div>
+                <div class="testimonial-author">
+                    {% if testimonial.image %}
+                    <div class="testimonial-author-image">
+                        <img src="{{ testimonial.image.url }}" alt="{{ testimonial.name }}">
+                    </div>
+                    {% else %}
+                    <div class="testimonial-author-image testimonial-author-placeholder">
+                        <span>{{ testimonial.name|slice:"0:1" }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="testimonial-author-info">
+                        <h4 class="testimonial-author-name">{{ testimonial.name }}</h4>
+                        <p class="testimonial-author-title">{{ testimonial.position }}, {{ testimonial.company }}</p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <!-- Fallback testimonials if none exist in the database yet -->
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="0">
+                <div class="testimonial-content">
+                    "Amit completely transformed our marketing approach. He helped us implement a data-driven strategy that increased our conversion rates by 53% in just 3 months. His insights and expertise were invaluable, and our team learned so much from his guidance."
+                </div>
+                <div class="testimonial-author">
+                    <div class="testimonial-author-image testimonial-author-placeholder">
+                        <span>S</span>
+                    </div>
+                    <div class="testimonial-author-info">
+                        <h4 class="testimonial-author-name">Sarah Johnson</h4>
+                        <p class="testimonial-author-title">CMO, TechFlow Solutions</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="testimonial-content">
+                    "Working with Amit was a game-changer for our business. He helped us identify our unique market position and craft a marketing strategy that resonated with our ideal customers. Within 6 months, our lead generation increased by 215% and our sales pipeline grew significantly."
+                </div>
+                <div class="testimonial-author">
+                    <div class="testimonial-author-image testimonial-author-placeholder">
+                        <span>M</span>
+                    </div>
+                    <div class="testimonial-author-info">
+                        <h4 class="testimonial-author-name">Michael Chen</h4>
+                        <p class="testimonial-author-title">Founder & CEO, Horizon Ventures</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="testimonial-content">
+                    "Amit's strategic approach to marketing helped us cut through the noise in a crowded market. His methodical process and deep understanding of consumer psychology led to messaging that truly resonated with our audience. Our brand awareness metrics improved by 78% and our customer acquisition cost dropped by 32%."
+                </div>
+                <div class="testimonial-author">
+                    <div class="testimonial-author-image testimonial-author-placeholder">
+                        <span>J</span>
+                    </div>
+                    <div class="testimonial-author-info">
+                        <h4 class="testimonial-author-name">Jessica Martinez</h4>
+                        <p class="testimonial-author-title">VP Marketing, Urban Lifestyle</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Testimonials Section Styles */
+    .testimonials {
+        background-color: var(--darker);
+        color: var(--light);
+        position: relative;
+    }
+    
+    .testimonials-container {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .testimonials-header {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 4rem;
+    }
+    
+    .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2.5rem;
+    }
+    
+    .testimonial-card {
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 1rem;
+        padding: 2.5rem;
+        position: relative;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .testimonial-card:hover {
+        transform: translateY(-10px);
+        background-color: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 30px 40px -20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .testimonial-card::before {
+        content: '"';
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 5rem;
+        font-family: Georgia, serif;
+        color: rgba(255, 255, 255, 0.1);
+        line-height: 1;
+    }
+    
+    .testimonial-content {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+        color: rgba(255, 255, 255, 0.9);
+    }
+    
+    .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .testimonial-author-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+    
+    .testimonial-author-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .testimonial-author-placeholder {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--light);
+    }
+    
+    .testimonial-author-info {
+        flex: 1;
+    }
+    
+    .testimonial-author-name {
+        font-size: 1.125rem;
+        margin-bottom: 0.25rem;
+        color: var(--light);
+    }
+    
+    .testimonial-author-title {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 0;
+    }
+    
+    @media (max-width: 992px) {
+        .testimonials-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

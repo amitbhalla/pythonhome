@@ -1,0 +1,222 @@
+{% load custom_filters %}
+<section class="faq" id="faq">
+    <div class="container faq-container">
+        <div class="faq-header">
+            <span class="section-tag">Common Questions</span>
+            <h2>Frequently Asked <span class="text-gradient">Questions</span></h2>
+            <p>
+                Get answers to the most common questions about my marketing services, process, and approach.
+            </p>
+        </div>
+        
+        <div class="faq-accordion">
+            {% for faq_item in faqs %}
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|multiply:50 }}">
+                <div class="faq-question">
+                    <h3>{{ faq_item.question }}</h3>
+                    <div class="faq-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>{{ faq_item.answer|linebreaks }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <!-- Fallback FAQs if none exist in the database yet -->
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="0">
+                <div class="faq-question">
+                    <h3>How do your marketing services differ from traditional agencies?</h3>
+                    <div class="faq-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>Unlike traditional agencies that focus primarily on execution, I take a holistic approach to marketing strategy. I work directly with leadership teams to align marketing initiatives with business goals, develop comprehensive frameworks for sustainable growth, and ensure all tactics are data-driven and measurable. My approach is more strategic and consultative, focusing on long-term success rather than just short-term campaigns.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="50">
+                <div class="faq-question">
+                    <h3>What types of businesses do you typically work with?</h3>
+                    <div class="faq-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>I work with growth-oriented businesses across various industries, including SaaS, e-commerce, professional services, and B2B companies. My clients typically range from funded startups looking to scale rapidly to established mid-market companies seeking to optimize their marketing ROI and build sustainable growth engines. The common thread is a commitment to data-driven marketing and a desire for strategic guidance beyond tactical execution.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                <div class="faq-question">
+                    <h3>How do you measure marketing success?</h3>
+                    <div class="faq-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>I believe in establishing clear KPIs and metrics that align with your specific business goals. Depending on your objectives, these might include customer acquisition cost (CAC), customer lifetime value (LTV), conversion rates, lead quality, revenue growth, or ROI. We'll determine the most relevant metrics for your business at the outset and establish a measurement framework to track progress over time. Regular reporting and analysis ensure we can optimize strategies based on real performance data.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="150">
+                <div class="faq-question">
+                    <h3>What is your typical engagement process?</h3>
+                    <div class="faq-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>My engagement process typically follows these steps:
+                    
+                    1. <strong>Discovery and Analysis</strong>: I'll conduct a thorough assessment of your current marketing efforts, business goals, target audience, and competitive landscape.
+                    
+                    2. <strong>Strategy Development</strong>: Based on the analysis, I'll create a customized marketing strategy aligned with your business objectives.
+                    
+                    3. <strong>Implementation Planning</strong>: We'll develop a detailed roadmap for executing the strategy, including timelines, resources, and key milestones.
+                    
+                    4. <strong>Execution Support</strong>: I can either work with your internal team or help you manage external resources to implement the strategy.
+                    
+                    5. <strong>Measurement and Optimization</strong>: We'll continuously monitor performance, make data-driven adjustments, and optimize for better results.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                <div class="faq-question">
+                    <h3>How long does it typically take to see results?</h3>
+                    <div class="faq-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>The timeline for results varies depending on your current marketing maturity, industry, and specific goals. Some tactical improvements may show results within weeks, while strategic initiatives typically begin showing meaningful results within 3-6 months. What's important is that we'll establish clear expectations upfront and track leading indicators that signal progress before the final results manifest. Marketing is both an art and a science—we'll focus on building sustainable growth rather than quick fixes that don't last.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<style>
+    /* FAQ Section Styles */
+    .faq {
+        background-color: var(--light);
+        position: relative;
+    }
+    
+    .faq-container {
+        position: relative;
+        z-index: 2;
+    }
+    
+    .faq-header {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 4rem;
+    }
+    
+    .faq-accordion {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+    
+    .faq-item {
+        background-color: var(--light);
+        border-radius: 1rem;
+        overflow: hidden;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.05);
+        border: 1px solid var(--gray-light);
+    }
+    
+    .faq-question {
+        padding: 1.5rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    
+    .faq-question h3 {
+        margin-bottom: 0;
+        font-size: 1.125rem;
+        padding-right: 1rem;
+    }
+    
+    .faq-icon {
+        flex-shrink: 0;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: var(--gray-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--dark);
+        font-size: 0.75rem;
+        transition: all 0.3s ease;
+    }
+    
+    .faq-answer {
+        padding: 0 2rem;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+    
+    .faq-answer p {
+        margin-bottom: 1.5rem;
+        padding-top: 0;
+    }
+    
+    .faq-item.active .faq-question {
+        background-color: var(--primary);
+        color: var(--light);
+    }
+    
+    .faq-item.active .faq-question h3 {
+        color: var(--light);
+    }
+    
+    .faq-item.active .faq-icon {
+        background-color: var(--light);
+        color: var(--primary);
+        transform: rotate(45deg);
+    }
+    
+    .faq-item.active .faq-answer {
+        max-height: 1000px;
+        padding-bottom: 1.5rem;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                
+                // Close all items
+                faqItems.forEach(faqItem => {
+                    faqItem.classList.remove('active');
+                });
+                
+                // Open clicked item if it wasn't already active
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+        
+        // Open first FAQ item by default
+        if (faqItems.length > 0) {
+            faqItems[0].classList.add('active');
+        }
+    });
+</script>
